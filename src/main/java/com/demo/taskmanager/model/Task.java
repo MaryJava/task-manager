@@ -1,7 +1,11 @@
 package com.demo.taskmanager.model;
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +25,7 @@ public class Task implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -30,6 +34,14 @@ public class Task implements Serializable {
             joinColumns = {@JoinColumn(name = "task_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name = "comment_id", nullable = false, updatable = false)})
     private List<Comment> comments = new LinkedList<>();
+
+    @Column(name = "created_at")
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(name = "updated_at")
+    @LastModifiedDate
+    private Date updatedAt;
 
     public Task() {
     }

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "comment")
 public class Comment implements Serializable {
 
     @Id
