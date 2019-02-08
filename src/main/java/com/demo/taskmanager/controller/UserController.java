@@ -19,8 +19,8 @@ public class UserController {
     }
 
     @GetMapping("/users/{email}/user")
-    public User User(@PathVariable(value = "email") String email) {
+    public User User(@PathVariable(value = "email") String e) {
 
-        return userService.retrieve(email);
+        return userService.retrieve(e);
     }
 }

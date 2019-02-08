@@ -1,12 +1,12 @@
 package com.demo.taskmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,12 +16,12 @@ import java.util.Set;
 @EntityListeners(AuditingEntityListener.class)
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"}, allowGetters = true)
 @Table(name = "user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
-public class User implements Serializable {
+public class User {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false, length = 10)
     private String name;
@@ -29,6 +29,7 @@ public class User implements Serializable {
     @Column(unique = true, nullable = false, length = 10)
     private String email;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Task> tasks = new HashSet<>();
 
@@ -92,4 +93,5 @@ public class User implements Serializable {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 }
