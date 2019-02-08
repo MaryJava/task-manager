@@ -1,6 +1,9 @@
 package com.demo.taskmanager.controller;
 
 
+import com.demo.taskmanager.bean.UserBean;
+
+import com.demo.taskmanager.bean.mapping.UserMapper;
 import com.demo.taskmanager.model.User;
 import com.demo.taskmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +16,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @PostMapping("/users")
-    public User createUser(@RequestBody User user) {
-        return userService.create(user);
+    public UserBean createUser(@RequestBody UserBean userBean) {
+        User user = userService.create(userMapper.getUser(userBean));
+        return userMapper.getUserBean(user);
     }
 
     @GetMapping("/users/{email}/user")
-    public User User(@PathVariable(value = "email") String e) {
-
-        return userService.retrieve(e);
+    public UserBean User(@PathVariable(value = "email") String email) {
+        User user = userService.retrieve(email);
+        UserBean userBean = userMapper.getUserBean(user);
+        return userBean;
     }
 }
