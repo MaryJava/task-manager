@@ -6,13 +6,11 @@ import com.demo.taskmanager.bean.UserBean;
 import com.demo.taskmanager.bean.UserWithTasksBean;
 import com.demo.taskmanager.bean.mapping.TaskMapper;
 import com.demo.taskmanager.bean.mapping.UserMapper;
-import com.demo.taskmanager.model.Status;
 import com.demo.taskmanager.model.Task;
 import com.demo.taskmanager.model.User;
 import com.demo.taskmanager.service.TaskService;
 import com.demo.taskmanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
@@ -42,7 +40,6 @@ public class UserController {
 
     @PostMapping("/users/userwithtasks")
     public UserWithTasksBean createUserWithTasks(@RequestBody UserWithTasksBean userWithTasksBean) {
-
         User user = userMapper.convertToUser(userWithTasksBean);
         Set<Task> tasks = new HashSet<>();
         for (TaskBean taskBean : userWithTasksBean.getTasksList()) {
@@ -51,7 +48,7 @@ public class UserController {
         }
         user.setTasks(tasks);
         User createdUser = userService.createUserWithTasks(user, tasks);
-        return (UserWithTasksBean) userMapper.convertToUserBean(createdUser);
+        return userMapper.convertToUserWithTaskBean(createdUser);
     }
 
 
@@ -61,20 +58,4 @@ public class UserController {
         UserBean userBean = userMapper.convertToUserBean(user);
         return userBean;
     }
-
-    /*@PostMapping("/users/userwithtasks")
-    public UserWithTasksBean createUserWithTasks(@RequestBody UserWithTasksBean userWithTasksBean) {
-
-        Assert.isTrue(userWithTasksBean.getTasksList() != null && userWithTasksBean.getTasksList().size() > 0,
-                "At least one task must be provided with user");
-        User user = userMapper.getUser(userWithTasksBean);
-        Set<Task> tasks = new HashSet<>();
-        for (TaskBean taskBean : userWithTasksBean.getTasksList()) {
-            Task task = taskMapper.getTask(taskBean);
-            tasks.add(task);
-        }
-        user.setTasks(tasks);
-        User createdUser = userService.create(user);
-        return (UserWithTasksBean) userMapper.getUserBean(createdUser);
-    }*/
 }

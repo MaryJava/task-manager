@@ -53,11 +53,11 @@ public class Task implements Serializable {
     public Task() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -101,6 +101,22 @@ public class Task implements Serializable {
         this.comments = comments;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -108,15 +124,16 @@ public class Task implements Serializable {
 
         Task task = (Task) o;
 
-        if (getId() != task.getId()) return false;
-        return getSubject().equals(task.getSubject());
+        if (getId() != null ? !getId().equals(task.getId()) : task.getId() != null) return false;
+        if (getSubject() != null ? !getSubject().equals(task.getSubject()) : task.getSubject() != null) return false;
+        return getCreatedAt() != null ? getCreatedAt().equals(task.getCreatedAt()) : task.getCreatedAt() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + getSubject().hashCode();
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getSubject() != null ? getSubject().hashCode() : 0);
+        result = 31 * result + (getCreatedAt() != null ? getCreatedAt().hashCode() : 0);
         return result;
     }
-
 }

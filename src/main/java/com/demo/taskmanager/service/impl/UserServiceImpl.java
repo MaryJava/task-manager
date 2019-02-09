@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
         for (Task task : tasks) {
             task.setUser(createdUser);
         }
-        taskService.createTasks(tasks);
+        Set<Task> createdTasks = taskService.createTasks(tasks);
+        createdUser.setTasks(createdTasks);
         return createdUser;
     }
 
