@@ -1,6 +1,7 @@
 package com.demo.taskmanager.bean.mapping;
 
 import com.demo.taskmanager.bean.UserBean;
+import com.demo.taskmanager.bean.UserWithTasksBean;
 import com.demo.taskmanager.model.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,16 @@ public class UserMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-    public UserBean getUserBean(User user) {
+    public UserBean convertToUserBean(User user) {
         return modelMapper.map(user, UserBean.class);
     }
 
-    public User getUser(UserBean userBean) {
+    public User convertToUser(UserBean userBean) {
         return modelMapper.map(userBean, User.class);
+    }
+
+    public UserWithTasksBean convertTo(User user) {
+        //return modelMapper(user, UserWithTasksBean.class);
+        return null;
     }
 }

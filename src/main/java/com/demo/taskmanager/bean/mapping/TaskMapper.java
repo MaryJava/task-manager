@@ -12,11 +12,11 @@ public class TaskMapper {
     @Autowired
     private ModelMapper modelMapper;
 
-    public TaskBean getTaskBean(Task task) {
+    public TaskBean convertToTaskBean(Task task) {
         return modelMapper.map(task, TaskBean.class);
     }
 
-    public Task getTask(TaskBean taskBean) {
+    public Task convertToTask(TaskBean taskBean) {
         return modelMapper.map(taskBean, Task.class);
     }
 }

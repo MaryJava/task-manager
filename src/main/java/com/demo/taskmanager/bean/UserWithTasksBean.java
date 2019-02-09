@@ -1,24 +1,16 @@
 package com.demo.taskmanager.bean;
 
-import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
-public class UserWithTasksBean implements Serializable {
+public class UserWithTasksBean extends UserBean {
 
-    private List<TaskBean> tasksList;
+    private Set<TaskBean> tasksList;
 
-    public UserWithTasksBean() {
-    }
-
-    public UserWithTasksBean(List<TaskBean> tasksList) {
-        this.tasksList = tasksList;
-    }
-
-    public List<TaskBean> getTasksList() {
+    public Set<TaskBean> getTasksList() {
         return tasksList;
     }
 
-    public void setTasksList(List<TaskBean> tasksList) {
+    public void setTasksList(Set<TaskBean> tasksList) {
         this.tasksList = tasksList;
     }
 }
